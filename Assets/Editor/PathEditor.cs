@@ -27,7 +27,6 @@ public class PathEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-
         // Button for creating a new path
         EditorGUI.BeginChangeCheck();
         if (GUILayout.Button("Create New"))
@@ -36,6 +35,17 @@ public class PathEditor : Editor
             creator.CreatePath();
             ResetSelected();
         }
+        
+        for (int i = 0; i < Path.NumSegments; i++)
+        {
+            float speed = EditorGUILayout.FloatField($"Segment {i + 1}", Path.Speeds[i]);
+            if (speed != Path.Speeds[i])
+            {
+                Undo.RecordObject(creator, "Segment speed changed");
+                Path.Speeds[i] = speed;
+            }
+        }
+
 
         // Button for toggling the paths closed state
         bool isClosed = GUILayout.Toggle(Path.IsClosed, "Toggle Closed Path");
