@@ -38,11 +38,10 @@ public class PathEditor : Editor
         
         for (int i = 0; i < Path.NumSegments; i++)
         {
-            float speed = EditorGUILayout.FloatField($"Segment {i + 1}", Path.Speeds[i]);
-            if (speed != Path.Speeds[i])
+            float speed = EditorGUILayout.FloatField($"Segment {i + 1}", Path.Durations[i]);
+            if (speed != Path.Durations[i])
             {
-                Undo.RecordObject(creator, "Segment speed changed");
-                Path.Speeds[i] = speed;
+                Path.Durations[i] = speed;
             }
         }
 
@@ -294,7 +293,7 @@ public class PathEditor : Editor
 
             // Draw curve between anchor points
             Handles.DrawBezier(points[0], points[3], points[1], points[2], segmentColour, null, 2f);
-            Handles.Label(Bezier.EvaluateCubic(points[0], points[1], points[2], points[3], 0.5f) + new Vector3(0f, 0.1f, 0f), $"v = {Path.Speeds[i]}", textStyle);
+            Handles.Label(Bezier.EvaluateCubic(points[0], points[1], points[2], points[3], 0.5f) + new Vector3(0f, 0.1f, 0f), $"v = {Path.Durations[i]}", textStyle);
         }
 
         // Draw appropriate handles for selected anchor point and its corresponding control points

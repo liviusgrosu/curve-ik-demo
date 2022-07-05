@@ -12,7 +12,7 @@ public class Path
     [SerializeField, HideInInspector]
     public List<float> Angles;
     [SerializeField, HideInInspector]
-    public List<float> Speeds;
+    public List<float> Durations;
     [SerializeField, HideInInspector]
     private bool isClosed;
     [SerializeField, HideInInspector]
@@ -40,7 +40,7 @@ public class Path
             0f,
             0f
         };
-        Speeds = new List<float>()
+        Durations = new List<float>()
         {
             0f
         };
@@ -156,7 +156,7 @@ public class Path
         // Add in rotation data for each point
         rotations.Add(Quaternion.identity);
         Angles.Add(0f);
-        Speeds.Add(0f);
+        Durations.Add(0f);
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public class Path
         // Add rotation data to those points
         rotations.Add(Quaternion.identity);
         Angles.Add(0f);
-        Speeds.Add(0f);
+        Durations.Add(0f);
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public class Path
         // Remove rotation data
         rotations.RemoveAt(anchorIndex / 3);
         Angles.RemoveAt(anchorIndex / 3);
-        Speeds.RemoveAt(anchorIndex / 3);
+        Durations.RemoveAt(anchorIndex / 3);
     }
 
     /// <summary>

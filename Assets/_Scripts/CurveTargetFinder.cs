@@ -6,7 +6,6 @@ using UnityEngine;
 public class CurveTargetFinder : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float timeToComplete;
     [SerializeField] private bool onAwake;
     [SerializeField] private PathCreator pathCreator;
     private float _timeElapsed = 0f;
@@ -38,7 +37,6 @@ public class CurveTargetFinder : MonoBehaviour
 
     private void PerformTracking()
     {
-        _timeElapsed = 0f;
         StopCoroutine(StartTrackingPath());
         StartCoroutine(StartTrackingPath());
     }
@@ -46,13 +44,21 @@ public class CurveTargetFinder : MonoBehaviour
     IEnumerator StartTrackingPath()
     {
         _performingTrack = true;
-        while (_timeElapsed <= timeToComplete)
+
+        for (int i = 0; i < pathCreator.path.Durations.Count; i++)
         {
-            _timeElapsed += Time.deltaTime;
-            Vector3 newPosition = Bezier.EvaluateCubic(pathCreator.path.points[0], pathCreator.path.points[1], pathCreator.path.points[2], pathCreator.path.points[3], _timeElapsed / timeToComplete);
-            target.position = newPosition;
-            yield return null;
+            float segmentDuration = pathCreator.path.Durations[i];
+            Vector3[] segmentPoints = pathCreator.path.GetPointsInSegement(i);
+            _timeElapsed = 0f;
+            while (_timeElapsed <= segmentDuration)
+            {
+                _timeElapsed += Time.deltaTime;
+                Vector3 newPosition = Bezier.EvaluateCubic(segmentPoints[0], segmentPoints[1], segmentPoints[2], segmentPoints[3], _timeElapsed / segmentDuration);
+                target.position = newPosition;
+                yield return null;
+            }
         }
+        
         _performingTrack = false;
     }
 }

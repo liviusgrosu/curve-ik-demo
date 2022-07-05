@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PathCreator : MonoBehaviour
@@ -20,11 +22,11 @@ public class PathCreator : MonoBehaviour
         path = new Path(transform.position);
     }
 
-    /// <summary>
-    /// Resets the path by generating a new one
-    /// </summary>
-    private void Reset()
+    private void Update()
     {
-        CreatePath();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            CreatePath();
+        }
     }
 }
