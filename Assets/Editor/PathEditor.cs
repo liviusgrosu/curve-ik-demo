@@ -282,6 +282,10 @@ public class PathEditor : Editor
     /// </summary>
     private void Draw()
     {
+        GUIStyle textStyle = new GUIStyle();
+        textStyle.fontSize = 20;
+        textStyle.normal.textColor = Color.green;
+        
         // Draw bezier curve from each segment
         for(int i = 0; i < Path.NumSegments; i++)
         {
@@ -290,6 +294,7 @@ public class PathEditor : Editor
 
             // Draw curve between anchor points
             Handles.DrawBezier(points[0], points[3], points[1], points[2], segmentColour, null, 2f);
+            Handles.Label(Bezier.EvaluateCubic(points[0], points[1], points[2], points[3], 0.5f) + new Vector3(0f, 0.1f, 0f), $"v = {Path.Speeds[i]}", textStyle);
         }
 
         // Draw appropriate handles for selected anchor point and its corresponding control points
@@ -342,8 +347,7 @@ public class PathEditor : Editor
                         Vector3 pointUp = Vector3.Cross(pointLeft, forwardDirection);
 
                         // Display the points angle right above the arch
-                        GUIStyle textStyle = new GUIStyle();
-                        textStyle.normal.textColor = Color.cyan;
+                        textStyle.normal.textColor = Color.red;
                         Handles.Label(Path[i] + pointUp.normalized * 1.25f, $"Δ {Path.Angles[i / 3]}", textStyle);
                     }
                 }
