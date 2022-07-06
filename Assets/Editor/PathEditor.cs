@@ -29,13 +29,9 @@ public class PathEditor : Editor
         base.OnInspectorGUI();
         // Button for creating a new path
         EditorGUI.BeginChangeCheck();
-        if (GUILayout.Button("Create New"))
-        {
-            Undo.RecordObject(creator, "Create new");
-            creator.CreatePath();
-            ResetSelected();
-        }
-        
+
+        GUILayout.Space(5);
+        EditorGUILayout.LabelField("Segment Durations", EditorStyles.boldLabel);
         for (int i = 0; i < Path.NumSegments; i++)
         {
             float speed = EditorGUILayout.FloatField($"Segment {i + 1}", Path.Durations[i]);
@@ -44,7 +40,15 @@ public class PathEditor : Editor
                 Path.Durations[i] = speed;
             }
         }
-
+        
+        GUILayout.Space(5);
+        EditorGUILayout.LabelField("Path Controls", EditorStyles.boldLabel);
+        if (GUILayout.Button("Create New"))
+        {
+            Undo.RecordObject(creator, "Create new");
+            creator.CreatePath();
+            ResetSelected();
+        }
 
         // Button for toggling the paths closed state
         bool isClosed = GUILayout.Toggle(Path.IsClosed, "Toggle Closed Path");

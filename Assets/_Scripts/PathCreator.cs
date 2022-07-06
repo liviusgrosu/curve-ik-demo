@@ -9,6 +9,7 @@ public class PathCreator : MonoBehaviour
     [HideInInspector]
     public Path path;
 
+    [Header("Colours")]
     public Color anchorColour = Color.red;
     public Color controlColour = Color.white;
     public Color segmentColour = Color.green;
