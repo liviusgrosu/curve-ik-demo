@@ -86,6 +86,7 @@ public class Path
                         AutoSetAnchorControlPoints(0);
                         AutoSetAnchorControlPoints(points.Count - 3);
                     }
+                    Durations.Add(0f);
                 }
                 else
                 {
@@ -95,6 +96,7 @@ public class Path
                     {
                         AutoSetStartAndEndControls();
                     }
+                    Durations.RemoveAt(Durations.Count - 1);
                 }
             }
         }
