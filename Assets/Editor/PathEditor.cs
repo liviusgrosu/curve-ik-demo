@@ -351,6 +351,9 @@ public class PathEditor : Editor
 
                         // Display the points angle right above the arch
                         textStyle.normal.textColor = Color.red;
+                        // Display point index
+                        Handles.Label(Path[i] - Vector3.right * 0.25f, $"{(i / 3) + 1}", textStyle);
+                        // Display point angle
                         Handles.Label(Path[i] + pointUp.normalized * 1.25f, $"Δ {Path.Angles[i / 3]}", textStyle);
                     }
                 }
