@@ -48,11 +48,11 @@ public class CurveTargetFinder : MonoBehaviour
         for (int i = 0; i < pathCreator.path.Durations.Count; i++)
         {
             float segmentDuration = pathCreator.path.Durations[i];
-            Vector3[] segmentPoints = pathCreator.path.GetPointsInSegement(i);
             _timeElapsed = 0f;
             while (_timeElapsed <= segmentDuration)
             {
                 _timeElapsed += Time.deltaTime;
+                Vector3[] segmentPoints = pathCreator.path.GetPointsInSegement(i);
                 Vector3 newPosition = Bezier.EvaluateCubic(segmentPoints[0], segmentPoints[1], segmentPoints[2], segmentPoints[3], _timeElapsed / segmentDuration);
                 target.position = newPosition;
                 yield return null;
